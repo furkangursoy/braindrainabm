@@ -68,9 +68,9 @@ Given that *n* is the length of the simulation, the below equation shows the for
 The emigration process is shown in below algorithm. It also demonstrates how the values of *s* and *luck* are updated.
 
 **if** *p > threshold*
-	**if** *p \* luck > random(0,1)*
-		*s = 0*
+	**then** [ **if** *p \* luck > random(0,1)*
+		**then** s = 0*
 	**else**
-		*luck = luck \* luckCoef*
+		*luck = luck \* luckCoef* ]
 **else**
 	**continue;**
