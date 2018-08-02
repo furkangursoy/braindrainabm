@@ -1,8 +1,8 @@
-##Purpose
+## Purpose
 
 Brain drain can be defined as the emigration of highly trained or qualified people from a particular country, which has many undesirable effects for the source country. Purpose of the model is to understand the dynamics of brain drain; and provide an initial version of a simulation-based decision support tool which can be used in discovering future trends for such emigration, and design effective social policies which can reduce, stop, or reverse the brain drain. The model proposes that skilled people would like to emigrate to maximise their utility, yet actual emigration is constrained with barriers, luck, and individuals' social network.
 
-##Entities, state variables, and scales
+## Entities, state variables, and scales
 
 There exists only a single type of entity, agents, to represent individual persons who are well educated/skilled. Each person is characterised by a number of states: years spent in the workforce (*age*), whether the agent has moved abroad or still in the country (*s*), initial utility representing the agents' utility of moving abroad at the beginning of a simulation (*x*), and the utility of an agent during the course of simulation (*y*) which is calculated based on initial utility and relative attractiveness difference between host and home countries (*G*). The values for *x* and *y* are relative rather than absolute, with positive values indicating that target country provides more utility than the source country. The actual probability of moving abroad consists of a component (*p*) which is a function of utility and number of network-neighbours living abroad (i.e., *s = 0*), and luck of the agent (*luck*).
 
@@ -12,7 +12,7 @@ Additional global variables in the model are as follows. How many meaningful con
 
 The model works at discrete time steps and each time step corresponds to a year. The model is simulated for 50 time steps since the authors believe that a period of 50 years is long enough but not too long for obtaining meaningful insights from a such model as ours.
 
-##Process overview and scheduling
+## Process overview and scheduling
 
 At each time step, the following tasks occur in the order of their appearance here. 
 
@@ -26,7 +26,7 @@ At each time step, the following tasks occur in the order of their appearance he
 
 	
 
-##Design Concepts
+## Design Concepts
 
 **Basic Principles.** This model assumes a simple utilitarian approach with barriers and random processes for actually performing the most beneficial action: staying in the country or moving abroad. Network effects also play role in migration by making it more likely for people to move abroad if they have more people in their network who live abroad. Moreover, unsuccessful emigration attempts reduce future chances of emigration. Each unsuccessful attempt uncovers new information indicating further barriers for that agent's emigration. If this is omitted, too many agents who have positive utility eventually emigrate in one of their large number of repetitive attempts over the course of simulation. 
 
@@ -40,13 +40,13 @@ At each time step, the following tasks occur in the order of their appearance he
 
 **Observation.** A plot is used for observing the number of agents staying in the country over the course of simulation. In addition, two simple monitors are used to display the number of individuals at home country and abroad. A visual display is also included which displays the links between the agents who are represented with different colours based on whether they live in home country or abroad.
 
-##Initialisation
+## Initialisation
 Initially, *1000* agents are created. All *s* values are initiated as *1* (i.e., all agents are born in the home country). All agents have the same initial *luck* value of *1*. Their *age* values are randomly assigned between *0* and *30*, assuming that an agent stays in the workforce for 30 years. Finally, all agents have *x* values uniformly distributed between *-1* and *1*, which means that some have better utility in moving abroad and others in staying in the country.
 
-##Input Data
+## Input Data
 The model does not use input from external models or data files.
 
-##Submodels
+## Submodels
 
 Due to initialisation of 1000 agents aged uniformly in *0-30* range, around 33 people would have *age* value of *30*. In order to ensure the initial assumption that an agent stays in the workforce for around 30 years, 33 agents who have the greatest age are selected and removed from the model (i.e., death of agents). In case of more than enough number of agents having the same age, the agents are randomly selected among them. For birth of agents; 33 agents are duplicated, creating 33 agents with the same state values. However, we initialise all state values and network links from scratch; therefore, there is effectively no duplication. (In the earlier versions, duplication is used to carry some attributes of the parent agents to the newborn agents. In this version, we do not require such state value preservation. However, we chose to keep it this way in the code so that future versions make modifications on it to achieve such value preservation more easily.). *luck*, *age*,  *x* are assigned values same as the original initialisation. For each newborn agent, an appropriate number of links are created based on the selected network type. The expected value of the number of links in the network does not change over time. 
 
