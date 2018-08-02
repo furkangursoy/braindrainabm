@@ -61,17 +61,16 @@ Given that *n* is the length of the simulation, the below equation shows the for
 
 *p* values are updated based on the following equation, given that *NA* is the set of network-neighbours who already live abroad. The equation consists of two components: utility effects and network effects. Utility values are scaled and shifted by respective parameters *scale* and *shift* and used in a logistic function to produce utility effects. Network effects are calculated via the natural logarithm operation. A coefficient (*normCoef*) is utilised to balance range differences between utility effects and network effects. Initial experiments during model development showed that when *scale*, *slide*, and *normCoef* are set values of *1.5*, *4*, and *0.05* respectively, realistic and meaningful *p* values were obtained. Hence, those parameter values are employed in this study. 
 
-*p = e^{scale\*y-shift) / (e^(scale\*y-shift)+1) + normCoef \* networkCoef \* ln(1+|NA|)
-*
+*p = e^{scale\*y-shift) / (e^(scale\*y-shift)+1) + normCoef \* networkCoef \* ln(1+|NA|)*
 
 
 
 The emigration process is shown in below algorithm. It also demonstrates how the values of *s* and *luck* are updated.
 
 **if** *p > threshold*
-&nbsp;&nbsp;&nbsp;&nbsp;**if** *p \* luck > random(0,1)*
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*s = 0*
-&nbsp;&nbsp;&nbsp;&nbsp;**else**
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*luck = luck \* luckCoef*
+	**if** *p \* luck > random(0,1)*
+		*s = 0*
+	**else**
+		*luck = luck \* luckCoef*
 **else**
-&nbsp;&nbsp;&nbsp;&nbsp;**continue;**
+	**continue;**
