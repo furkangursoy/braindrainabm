@@ -1,3 +1,9 @@
+___
+F. Gürsoy and B. Badur. An Agent-Based Modelling Approach to Brain Drain. IEEE Transactions on Computational Social Systems (to appear)
+
+Preprint: https://arxiv.org/abs/2103.03234
+___
+
 ## Purpose
 
 Brain drain can be defined as the emigration of highly trained or qualified people from a particular country, which has many undesirable effects for the source country. Purpose of the model is to understand the dynamics of brain drain; and provide an initial version of a simulation-based decision support tool which can be used in discovering future trends for such emigration, and design effective social policies which can reduce, stop, or reverse the brain drain. The model proposes that skilled people would like to emigrate to maximise their utility, yet actual emigration is constrained with barriers, luck, and individuals' social network.
