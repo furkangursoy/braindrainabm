@@ -1,7 +1,25 @@
-___
-F. Gürsoy and B. Badur. An Agent-Based Modelling Approach to Brain Drain. IEEE Transactions on Computational Social Systems (to appear)
+### An Agent-Based Modelling Approach to Brain Drain
 
-Preprint: https://arxiv.org/abs/2103.03234
+This repository contains the NetLogo source code for the model presented in the following study.
+
+___
+_If you find this useful for your research, please consider citing:_
+
+F. Gürsoy, B. Badur. "An Agent-Based Modelling Approach to Brain Drain". _IEEE Transactions on Computational Social Systems._ 2021. (to appear)
+
+Full Text: https://arxiv.org/abs/2103.03234
+
+	@ARTICLE{gursoy2021braindrain,
+	  author={F. {Gürsoy} and B. {Badur}},
+	  journal={IEEE Transactions on Computational Social Systems}, 
+	  title={An Agent-Based Modelling Approach to Brain Drain}, 
+	  year={2021},
+	  volume={},
+	  number={},
+	  pages={},
+	  doi={},
+	  note={to appear}
+	  }
 ___
 
 ## Purpose
