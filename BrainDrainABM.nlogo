@@ -1,5 +1,14 @@
+;    Throughout the code, when appropriate, references are given to sections, equations, or algorithms
+; presented in the ODD document that accompany this source code.
+
+;     Meaningful ranges of user parameters are provided in the interface, i.e., the lower and upper bounds of the respective sliders.
+
+;     The model is tested for the provided ranges of user parameters and implemented ranges of other parameters,
+; e.g., x: uniform btw [-1,1], ticks: up to 50, networktype: in {"erdos-renyi", "barabasi-albert"}, etc.
+
 globals[G numberOfTurtles numberOfLinks]
 turtles-own[luck p y x s age]
+; Descriptions of parameters above and parameters presented in the interface are provided in Section 2
 
 to setup
   ca
@@ -22,36 +31,36 @@ to setup
 end
 
 to go
-  if ticks = 50 ;; simulation runs for 100 years
+  if ticks = 50 ;; Simulation runs for 50 years
   [
     stop
   ]
 
   ask turtles
   [
-    set age age + 1
+    set age age + 1   ;Step 1 (Section 3)
   ]
 
-  kill
-  birth
+  kill   ;Step 2 (Section 3)
+  birth  ;Step 2 (Section 3)
 
-  set G G_* - (G_* - G_0) * (exp (-0.1 * ticks))
+  set G G_* - (G_* - G_0) * (exp (-0.1 * ticks))  ;Step 3 (Section 3), Equation 1
   ask turtles with [s = 1]
   [
 
-    set y  x + G
+    set y  x + G   ;Step 4 (Section 3), Equation 2
 
-    set p  ( ( exp ( 1.5 * y - 4 ) ) / ( exp ( 1.5 * y - 4) + 1 ) )   +    ( networkCoef * ( ( ln(1 + count(link-neighbors with [s = 0])))  / 20 ) )
+    set p  ( ( exp ( 1.5 * y - 4 ) ) / ( exp ( 1.5 * y - 4) + 1 ) )   +    ( networkCoef * ( ( ln(1 + count(link-neighbors with [s = 0])))  / 20 ) )    ;Step 5, Equation 3
 
-    if p > threshold
+    if p > threshold  ;Step 6 (Section 3), Algorithm 1
     [
       ifelse random-float 1 < p * luck
       [
-        set s 0
+        set s 0   ;Step 7 (Section 3)
         set color red
       ]
       [
-        set luck luck * luckCoef
+        set luck luck * luckCoef  ;Step 7 (Section 3)
       ]
     ]
 
@@ -59,7 +68,7 @@ to go
   tick
 end
 
-to create [a]
+to create [a]    ;Section 5: Initialisation
   crt a
   [
     set s 1
@@ -67,16 +76,16 @@ to create [a]
     set color white
     setxy random-xcor random-ycor
     set luck 1
-    set x -1 + random-float 2 ;; x's are the advantage of moving abroad
+    set x -1 + random-float 2
     set age random 30.5
   ]
 end
 
-to kill
+to kill   ;Section 7 - Paragraph 1
   ask max-n-of 33 turtles [age]  [die]
 end
 
-to birth
+to birth  ;Section 7 - Paragraph 1
   ask n-of 33 turtles with [ s = 1 ][hatch 1 [
     set color white
     set luck 1
@@ -135,13 +144,13 @@ to barabasialbertBirth [nl]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-216
+214
 10
-1321
-508
+1359
+526
 -1
 -1
-3.04
+3.15
 1
 10
 1
@@ -162,10 +171,10 @@ ticks
 30.0
 
 BUTTON
-26
-278
-81
-311
+25
+297
+80
+330
 NIL
 setup
 NIL
@@ -179,10 +188,10 @@ NIL
 1
 
 BUTTON
-84
-278
-139
-311
+83
+297
+138
+330
 NIL
 go
 NIL
@@ -196,10 +205,10 @@ NIL
 1
 
 PLOT
-24
-318
-203
-453
+23
+337
+202
+472
 Brains at home
 NIL
 NIL
@@ -223,17 +232,6 @@ networktype
 "erdos-renyi" "barabasi-albert" "none"
 0
 
-INPUTBOX
-24
-204
-106
-264
-linksToNodesRatio
-10.0
-1
-0
-Number
-
 SLIDER
 23
 99
@@ -250,10 +248,10 @@ NIL
 HORIZONTAL
 
 MONITOR
-25
-462
-111
-507
+24
+481
+110
+526
 NIL
 count turtles with [s = 1]
 17
@@ -275,55 +273,22 @@ threshold
 NIL
 HORIZONTAL
 
-INPUTBOX
-24
-138
-104
-198
-G_0
-0.0
-1
-0
-Number
-
-INPUTBOX
-113
-137
-198
-197
-G_*
-0.0
-1
-0
-Number
-
 MONITOR
-117
-462
-204
-507
+116
+481
+203
+526
 NIL
 count turtles with [s = 0]
 17
 1
 11
 
-INPUTBOX
-111
-205
-199
-265
-networkCoef
-0.95
-1
-0
-Number
-
 BUTTON
-143
-279
-198
-312
+142
+298
+197
+331
 NIL
 go
 T
@@ -335,6 +300,66 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+24
+140
+199
+173
+G_0
+G_0
+-0.5
+0.5
+0.0
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+24
+179
+199
+212
+G_*
+G_*
+-0.5
+0.5
+0.0
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+24
+220
+199
+253
+networkCoef
+networkCoef
+0.5
+1.4
+0.95
+0.01
+1
+NIL
+HORIZONTAL
+
+SLIDER
+25
+259
+199
+292
+linksToNodesRatio
+linksToNodesRatio
+1
+30
+10.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -678,51 +703,10 @@ false
 Polygon -7500403 true true 270 75 225 30 30 225 75 270
 Polygon -7500403 true true 30 75 75 30 270 225 225 270
 @#$#@#$#@
-NetLogo 6.0.4
+NetLogo 6.1.1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
-<experiments>
-  <experiment name="experiment" repetitions="10000" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <metric>threshold</metric>
-    <metric>luckCoef</metric>
-    <metric>networkCoef</metric>
-    <metric>count turtles with [s = 1]</metric>
-  </experiment>
-  <experiment name="experiment" repetitions="100" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <metric>count turtles with [s = 1]</metric>
-  </experiment>
-  <experiment name="experiment" repetitions="10" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <metric>count turtles with [ s = 1 ]</metric>
-    <enumeratedValueSet variable="networkCoef">
-      <value value="0.9025"/>
-      <value value="0.95"/>
-      <value value="0.9975"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="experiment" repetitions="30000" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <metric>threshold</metric>
-    <metric>luckCoef</metric>
-    <metric>G_0</metric>
-    <metric>G_n</metric>
-    <metric>networkCoef</metric>
-    <metric>count turtles with [ s = 1 ]</metric>
-  </experiment>
-  <experiment name="experiment" repetitions="1000" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <metric>luckCoef</metric>
-    <metric>count turtles with [ s = 1 ]</metric>
-  </experiment>
-</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
